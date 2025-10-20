@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "54408142019",
+    "project_id": "composeauthapp",
+    "storage_bucket": "composeauthapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54408142019:android:a3fe4ae75eff4fdb225676",
+        "android_client_info": {
+          "package_name": "com.example.huertohogarmvapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB52ubPP3qgIpxuqCg0PSCxXDAgzR5PsX8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
