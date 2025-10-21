@@ -19,6 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.huertohogarmvapp.R
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -32,7 +34,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.huertohogarmvapp.AppUtil
 import com.example.huertohogarmvapp.viewmodel.AuthViewModel
-
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
 @Composable
 fun SignupScreen(modifier: Modifier = Modifier,navController: NavController,authViewModel: AuthViewModel = viewModel()) {
 
@@ -53,6 +60,8 @@ fun SignupScreen(modifier: Modifier = Modifier,navController: NavController,auth
     }
 
     var context = LocalContext.current
+
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = modifier.fillMaxSize()
@@ -98,7 +107,14 @@ fun SignupScreen(modifier: Modifier = Modifier,navController: NavController,auth
             label = {
                 Text(text = "Email")
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next
+                    ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+            )
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -106,12 +122,19 @@ fun SignupScreen(modifier: Modifier = Modifier,navController: NavController,auth
         OutlinedTextField(
             value = name,
             onValueChange = {
-                email = it
+                name = it
             },
             label = {
                 Text(text = "Nombre Completo")
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions.Default.copy(
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+            )
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -119,12 +142,15 @@ fun SignupScreen(modifier: Modifier = Modifier,navController: NavController,auth
         OutlinedTextField(
             value = password,
             onValueChange = {
-                email = it
+                password = it
             },
             label = {
                 Text(text = "Contraseña")
             },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            visualTransformation = PasswordVisualTransformation(),
+            singleLine = true
+
         )
 
         Spacer(modifier = Modifier.height(20.dp))
