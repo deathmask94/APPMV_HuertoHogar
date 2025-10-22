@@ -49,7 +49,7 @@ fun ProfilePage (modifier: Modifier = Modifier){
 
 
     LaunchedEffect(key1 = Unit) {
-        Firebase.firestore.collection("user")
+        Firebase.firestore.collection("users")
             .document(FirebaseAuth.getInstance().currentUser?.uid!!)
             .get().addOnCompleteListener {
                 if (it.isSuccessful) {
@@ -86,6 +86,8 @@ fun ProfilePage (modifier: Modifier = Modifier){
                 .fillMaxWidth()
         )
 
+        Spacer(modifier = Modifier.height(25.dp))
+
         Text(
             text = userModel.value.name,
             fontSize = 27.sp,
@@ -95,7 +97,7 @@ fun ProfilePage (modifier: Modifier = Modifier){
             )
 
 
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(25.dp))
 
         Text(
             text = "Direccion: ",
