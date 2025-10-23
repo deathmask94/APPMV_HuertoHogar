@@ -25,10 +25,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.ui.platform.LocalContext
+import com.example.huertohogarmvapp.AppUtil
 import com.example.huertohogarmvapp.viewmodel.GlobalNavigation
 
 @Composable
 fun ProductItemView(modifier: Modifier = Modifier,product : ProductModel) {
+
+    var context = LocalContext.current
+
+
     Card(
         modifier = modifier
             .padding(8.dp)
@@ -73,7 +79,9 @@ fun ProductItemView(modifier: Modifier = Modifier,product : ProductModel) {
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                IconButton(onClick = {}) {
+                IconButton(onClick = {
+                    AppUtil.addItemToCart(product.id,context)
+                }) {
                     Icon(
                         imageVector = Icons.Default.ShoppingCart,
                         contentDescription = "añadir carrito"

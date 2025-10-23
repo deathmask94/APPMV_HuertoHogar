@@ -105,7 +105,7 @@ fun ProfilePage (modifier: Modifier = Modifier){
             fontWeight = FontWeight.Medium,
         )
 
-
+        Text(text = userModel.value.address)
 
     }
 }

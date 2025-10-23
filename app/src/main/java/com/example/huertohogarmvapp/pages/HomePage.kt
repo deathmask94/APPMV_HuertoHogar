@@ -44,7 +44,7 @@ fun HomePage (modifier: Modifier = Modifier){
                     val resulList = it.result.documents.mapNotNull { doc ->
                         doc.toObject(ProductModel::class.java)
                     }
-                    productsList.value = resulList
+                    productsList.value = resulList.plus(resulList).plus(resulList)
                 }
             }
     }
@@ -55,7 +55,7 @@ fun HomePage (modifier: Modifier = Modifier){
     ) {
         HeaderView(modifier)
         BannerView(modifier)
-        //text "productos"
+
 
         Spacer(modifier = Modifier.height(50.dp))
 
