@@ -32,8 +32,10 @@ import androidx.compose.ui.res.painterResource
 
 import com.example.huertohogarmvapp.R
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.navigation.NavHostController
+import com.example.huertohogarmvapp.viewmodel.GlobalNavigation
 
 
 @Composable
@@ -43,9 +45,6 @@ fun ProfilePage (modifier: Modifier = Modifier){
         mutableStateOf(UserModel())
     }
 
-    var addressInput by remember {
-        mutableStateOf(userModel.value.address)
-    }
 
 
     LaunchedEffect(key1 = Unit) {
@@ -56,7 +55,6 @@ fun ProfilePage (modifier: Modifier = Modifier){
                     val result = it.result.toObject(UserModel::class.java)
                     if (result != null){
                         userModel.value = result
-                        addressInput = userModel.value.address
                     }
                 }
             }
@@ -100,12 +98,44 @@ fun ProfilePage (modifier: Modifier = Modifier){
         Spacer(modifier = Modifier.height(25.dp))
 
         Text(
-            text = "Direccion: ",
+            text = "Datos personales: ",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium,
+        )
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        Text(text = "Nombre ",
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Medium,
+            )
+
+        Text(text = userModel.value.name)
+
+        Spacer(modifier = Modifier.height(25.dp))
+
+        Text(text = "Email ",
             fontSize = 17.sp,
             fontWeight = FontWeight.Medium,
         )
 
-        Text(text = userModel.value.address)
+        Text(text = userModel.value.email)
+
+
+        TextButton(
+            onClick = {
+                FirebaseAuth.getInstance().signOut()
+                val navController = GlobalNavigation.navController
+                navController.popBackStack()
+                navController.navigate("auth")
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Text( text = "Sign Out", fontSize = 20.sp)
+        }
+
 
     }
 }
