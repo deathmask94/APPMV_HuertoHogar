@@ -13,11 +13,13 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import io.mockk.*
+import com.google.firebase.Firebase
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
+import com.google.firebase.firestore.firestore
 
 @RunWith(RobolectricTestRunner::class)
 @Config(sdk = [28], manifest = Config.NONE)
@@ -63,11 +65,6 @@ class AppUtilTest {
     fun setup() {
         context = ApplicationProvider.getApplicationContext()
 
-        // Initialize Firebase for Robolectric
-        if (FirebaseApp.getApps(context).isEmpty()) {
-            FirebaseApp.initializeApp(context)
-        }
-
         // Create mocks
         mockFirestore = mockk(relaxed = true)
         mockAuth = mockk(relaxed = true)
@@ -81,9 +78,9 @@ class AppUtilTest {
         every { mockAuth.currentUser } returns mockUser
         every { mockUser.uid } returns testUID
 
-        // Mock FirebaseFirestore
-        mockkStatic(FirebaseFirestore::class)
-        every { FirebaseFirestore.getInstance() } returns mockFirestore
+        // Mock la extension property Firebase.firestore
+        mockkStatic("com.google.firebase.firestore.FirestoreKt")
+        every { Firebase.firestore } returns mockFirestore
 
         // Setup Firestore chain
         every { mockFirestore.collection("users") } returns mockCollection
